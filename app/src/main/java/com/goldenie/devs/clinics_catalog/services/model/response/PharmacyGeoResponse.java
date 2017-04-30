@@ -1,6 +1,7 @@
 package com.goldenie.devs.clinics_catalog.services.model.response;
 
 
+import com.goldenie.devs.clinics_catalog.services.model.Pharmacy;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -25,8 +26,8 @@ public class PharmacyGeoResponse {
     @SerializedName("data")
     @Expose
     protected Object response;
-    public ArrayList<PharmacyLocation> getPharmacyGeo() {
-        Type listType = new TypeToken<ArrayList<PharmacyLocation>>() {}.getType();
+    public ArrayList<Pharmacy> getPharmacyGeo() {
+        Type listType = new TypeToken<ArrayList<Pharmacy>>() {}.getType();
         return gson.fromJson(response.toString(),listType);
     }
 }
