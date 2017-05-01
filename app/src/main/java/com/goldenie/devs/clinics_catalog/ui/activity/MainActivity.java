@@ -96,31 +96,16 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-        int id = item.getItemId();
 
         switch (item.getItemId()) {
             case R.id.nav_camera:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, PharmacyFragment.newInstance()).commit();
                 break;
             case R.id.nav_gallery:
                 break;
             case R.id.nav_slideshow:
                 break;
         }
-
-        if (id == R.id.nav_camera) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, PharmacyFragment.newInstance()).commit();
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
         // Выделяем выбранный пункт меню в шторке
         item.setChecked(true);
         // Выводим выбранный пункт в заголовке

@@ -8,6 +8,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.goldenie.devs.clinics_catalog.R;
 
+
 import butterknife.BindView;
 
 
@@ -44,8 +45,10 @@ public class PharmacyFragment extends BaseFragment {
 
             switch (position) {
                 case 0:
+                    getChildFragmentManager().beginTransaction().replace(R.id.container, ListPharmacyFragment.newInstance()).commit();
                     break;
                 case 1:
+                    getChildFragmentManager().beginTransaction().replace(R.id.container, MapPharmacyFragment.newInstance()).commit();
                     break;
             }
             return true;
