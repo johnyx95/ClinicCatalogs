@@ -21,7 +21,8 @@ public class WebServiceModule {
         Retrofit retrofit = retrofitBuilder.baseUrl(WebServiceUtils.ENDPOINT).build();
         return retrofit.create(CatalogWebService.class);
     }
-
+    @Provides
+    @Singleton
     public PharmacyWebService providePharmacyWebService(Retrofit.Builder retrofitBuilder) {
         Retrofit retrofit = retrofitBuilder.baseUrl(WebServiceUtils.HOST).build();
         return retrofit.create(PharmacyWebService.class);

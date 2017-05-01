@@ -2,6 +2,7 @@ package com.goldenie.devs.clinics_catalog.config;
 
 import android.app.Application;
 import android.content.Context;
+import android.location.LocationManager;
 
 import javax.inject.Singleton;
 
@@ -24,5 +25,11 @@ public class AppModule {
     @Singleton
     public Context provideContext() {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    public LocationManager provideLocationManager(Context context) {
+        return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 }

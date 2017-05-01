@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import lombok.Data;
 
 @Data
-public class PharamcyResponse {
+public class PharmacyResponse {
 
     @Inject
     protected Gson gson;

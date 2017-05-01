@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.goldenie.devs.clinics_catalog.utils.ViewUtils;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -28,9 +30,22 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+
+
+    public void showProgressDialog() {
+        if (isAdded())
+            ViewUtils.showProgressDialog(getActivity());
+    }
+
+    public void hideProgressDialog() {
+        if (isAdded())
+            ViewUtils.hideProgressDialog(getActivity());
+    }
+
     @Override
     public void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
     }
+
 }

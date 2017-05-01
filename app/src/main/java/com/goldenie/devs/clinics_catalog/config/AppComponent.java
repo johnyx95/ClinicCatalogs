@@ -1,5 +1,6 @@
 package com.goldenie.devs.clinics_catalog.config;
 
+import com.goldenie.devs.clinics_catalog.fragmets.MapPharmacyFragment;
 import com.goldenie.devs.clinics_catalog.services.model.response.BaseResponse;
 
 import javax.inject.Singleton;
@@ -11,7 +12,9 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, NetWorkingModule.class})
+@Component(modules = {AppModule.class, WebServiceModule.class, NetWorkingModule.class})
 public interface AppComponent {
     void inject(BaseResponse baseResponse);
+
+    void inject(MapPharmacyFragment mapPharmacyFragment);
 }
