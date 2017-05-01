@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import lombok.Getter;
+import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -47,8 +49,6 @@ import timber.log.Timber;
 
 public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallback, ClusterManager.OnClusterItemClickListener<Pharmacy.MapModel> {
 
-    public static final int MAPS_RESULT = 666;
-    public static final String CHOSEN_CAT = "some_cat";
     private static final String TAG = MapPharmacyFragment.class.getClass().getName();
 
     private ArrayList<Pharmacy> pharmacyArrayList = new ArrayList<>();
@@ -67,9 +67,6 @@ public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallb
     @Inject
     protected PharmacyWebService pharmacyWebService;
 
-
-
-
     @Getter
     private boolean mapReady = false;
 
@@ -78,8 +75,6 @@ public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallb
 
     @Nullable
     private GoogleMap googleMap;
-
-    private boolean hasNext = true;
 
     @Override
     protected int getContentView() {
@@ -101,10 +96,15 @@ public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadPlaces();
+    }
 
-    private void loadPharmacy(double longitude, double latitude){
+    private void loadPharmacy(double longitude, double latitude) {
         showProgressDialog();
-        pharmacyWebService.getPharmacyGeo(latitude,longitude)
+        pharmacyWebService.getPharmacyGeo(latitude, longitude)
                 .retry(2)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -122,8 +122,7 @@ public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallb
                     @Override
                     public void onNext(PharmacyResponse pharmacyResponse) {
                         hideProgressDialog();
-                        if(!pharmacyResponse.getPharmacy().isEmpty())
-                        {
+                        if (!pharmacyResponse.getPharmacy().isEmpty()) {
                             pharmacyArrayList.addAll(pharmacyResponse.getPharmacy());
                             dropPlaces();
                         }
@@ -143,7 +142,7 @@ public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallb
                         @Override
                         public void onLocationChanged(Location location) {
                             if (location != null) {
-                                loadPharmacy(location.getLatitude(),location.getLongitude());
+                                loadPharmacy(location.getLatitude(), location.getLongitude());
                             } else {
                                 Toast.makeText(getActivity(), R.string.we_cant_detect_your_location, Toast.LENGTH_SHORT).show();
                             }
@@ -204,8 +203,6 @@ public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallb
         googleMap.setOnCameraChangeListener(mClusterManager);
         googleMap.setOnMarkerClickListener(mClusterManager);
 
-        if (!hasNext)
-            dropPlaces();
     }
 
     private void dropPlaces() {
@@ -221,16 +218,27 @@ public class MapPharmacyFragment extends BaseFragment implements OnMapReadyCallb
                     .radius(2000)
                     .strokeColor(Color.parseColor("#90FFC107"))
                     .fillColor(Color.parseColor("#2000BCD4")));
-            for (Pharmacy pharmacy:pharmacyArrayList){
-                mClusterManager.addItem(pharmacy.getLocationModel());
-            }
+
+            Observable.from(pharmacyArrayList)
+                    .map(Pharmacy::getLocationModel)
+                    .toList()
+                    .subscribe(m -> mClusterManager.addItems(m));
+
             mClusterManager.cluster();
-
-
         }
     }
+
     @Override
     public boolean onClusterItemClick(Pharmacy.MapModel mapModel) {
-        return false;
+
+        Pharmacy pharmacy = Observable.from(pharmacyArrayList)
+                .filter(i -> i.getId().equals(mapModel.getId()))
+                .toBlocking()
+                .first();
+
+        BottomSheetDialogFragment bottomSheetDialogFragment = PharmacyBottomSheet.newInstance(pharmacy);
+        bottomSheetDialogFragment.show(getChildFragmentManager(), bottomSheetDialogFragment.getTag());
+
+        return true;
     }
 }

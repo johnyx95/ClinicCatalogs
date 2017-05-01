@@ -10,9 +10,9 @@ import rx.Observable;
 
 public interface PharmacyWebService {
 
-    @GET("/catalog/drugstores/map")
-    Observable<PharmacyResponse> getPharmacyGeo(@Query("lat") double lat,
-                                                @Query("lon") double lon);
+    @GET("/drugstores/map/")
+    Observable<PharmacyResponse> getPharmacyGeo(@Query("latitude") double lat,
+                                                @Query("longitude") double lon);
 
     @GET("/catalog/drugstores")
     Observable<PharmacyResponse> getPharmacy(@Nullable @Query("name") String name);

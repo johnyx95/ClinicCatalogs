@@ -4,7 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.goldenie.devs.clinics_catalog.config.AppComponent;
+import com.goldenie.devs.clinics_catalog.config.AppModule;
 import com.goldenie.devs.clinics_catalog.config.DaggerAppComponent;
+import com.goldenie.devs.clinics_catalog.config.NetWorkingModule;
+import com.goldenie.devs.clinics_catalog.config.WebServiceModule;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +30,12 @@ public class CatalogApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .netWorkingModule(new NetWorkingModule())
+                .webServiceModule(new WebServiceModule())
+                .build();
+
         setContext(this);
-        appComponent = DaggerAppComponent.builder().build();
     }
 }

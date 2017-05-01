@@ -5,6 +5,5 @@ package com.goldenie.devs.clinics_catalog.utils;
  */
 
 public class WebServiceUtils {
-    public static final String ENDPOINT = ""; //TODO: Add endpoint
-    public static final String HOST = "http://nm-api-latest.herokuapp.com/";
+    public static final String ENDPOINT = "http://46.101.206.251/"; //TODO: Add endpoint
 }
