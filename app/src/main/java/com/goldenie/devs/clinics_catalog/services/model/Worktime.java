@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class Worktime {
 
-@SerializedName("time_interval")
-@Expose
-public String timeInterval;
-@SerializedName("day_interval")
-@Expose
-public String dayInterval;
+    @SerializedName("time_interval")
+    @Expose
+    public String timeInterval;
+    @SerializedName("day_interval")
+    @Expose
+    public String dayInterval;
 
 }

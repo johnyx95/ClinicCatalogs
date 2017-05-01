@@ -8,14 +8,14 @@ import lombok.Data;
 @Data
 public class Location {
 
-@SerializedName("address")
-@Expose
-public String address;
-@SerializedName("longitude")
-@Expose
-public Double longitude;
-@SerializedName("latitude")
-@Expose
-public Double latitude;
+    @SerializedName("address")
+    @Expose
+    public String address;
+    @SerializedName("longitude")
+    @Expose
+    public Double longitude;
+    @SerializedName("latitude")
+    @Expose
+    public Double latitude;
 
 }

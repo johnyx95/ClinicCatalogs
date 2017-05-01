@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class ServicesResponse extends BaseResponse {
     public ArrayList<Service> getSrvices() {
-        Type listType = new TypeToken<ArrayList<Service>>() {}.getType();
-        return gson.fromJson(response.toString(),listType);
+        Type listType = new TypeToken<ArrayList<Service>>() {
+        }.getType();
+        return gson.fromJson(response.toString(), listType);
     }
 }

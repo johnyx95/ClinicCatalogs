@@ -4,16 +4,26 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.goldenie.devs.clinics_catalog.R;
+
 import butterknife.BindView;
 
 
 public class PharmacyFragment extends BaseFragment {
 
     @BindView(R.id.bottom_navigation)
-    com.aurelhubert.ahbottomnavigation.AHBottomNavigation bottomNavigation;
+    AHBottomNavigation bottomNavigation;
+
+    public static PharmacyFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        PharmacyFragment fragment = new PharmacyFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected int getContentView() {

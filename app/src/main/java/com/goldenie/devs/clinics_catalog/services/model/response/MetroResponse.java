@@ -1,6 +1,5 @@
 package com.goldenie.devs.clinics_catalog.services.model.response;
 
-import com.goldenie.devs.clinics_catalog.services.model.District;
 import com.goldenie.devs.clinics_catalog.services.model.Metro;
 import com.google.gson.reflect.TypeToken;
 
@@ -13,7 +12,8 @@ import java.util.ArrayList;
 
 public class MetroResponse extends BaseResponse {
     public ArrayList<Metro> getMetro() {
-        Type listType = new TypeToken<ArrayList<Metro>>() {}.getType();
-        return gson.fromJson(response.toString(),listType);
+        Type listType = new TypeToken<ArrayList<Metro>>() {
+        }.getType();
+        return gson.fromJson(response.toString(), listType);
     }
 }

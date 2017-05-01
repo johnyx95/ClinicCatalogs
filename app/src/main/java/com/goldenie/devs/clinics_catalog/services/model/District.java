@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class District {
 
-@SerializedName("name")
-@Expose
-public String name;
+    @SerializedName("name")
+    @Expose
+    public String name;
 
 }

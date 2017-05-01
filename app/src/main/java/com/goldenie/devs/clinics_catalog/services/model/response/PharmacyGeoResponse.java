@@ -26,8 +26,10 @@ public class PharmacyGeoResponse {
     @SerializedName("data")
     @Expose
     protected Object response;
+
     public ArrayList<Pharmacy> getPharmacyGeo() {
-        Type listType = new TypeToken<ArrayList<Pharmacy>>() {}.getType();
-        return gson.fromJson(response.toString(),listType);
+        Type listType = new TypeToken<ArrayList<Pharmacy>>() {
+        }.getType();
+        return gson.fromJson(response.toString(), listType);
     }
 }

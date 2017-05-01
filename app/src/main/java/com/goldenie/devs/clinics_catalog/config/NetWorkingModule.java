@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.goldenie.devs.clinics_catalog.BuildConfig;
 import com.goldenie.devs.clinics_catalog.utils.CachingControlInterceptor;
-import com.goldenie.devs.clinics_catalog.utils.WebServiceUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -33,7 +32,7 @@ public class NetWorkingModule {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(BuildConfig.DEBUG
                 ? HttpLoggingInterceptor.Level.BODY
-        : HttpLoggingInterceptor.Level.NONE);
+                : HttpLoggingInterceptor.Level.NONE);
         return loggingInterceptor;
     }
 

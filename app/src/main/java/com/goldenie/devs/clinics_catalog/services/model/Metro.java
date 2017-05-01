@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class Metro {
 
-@SerializedName("name")
-@Expose
-public String name;
-@SerializedName("line")
-@Expose
-public String line;
+    @SerializedName("name")
+    @Expose
+    public String name;
+    @SerializedName("line")
+    @Expose
+    public String line;
 
 }

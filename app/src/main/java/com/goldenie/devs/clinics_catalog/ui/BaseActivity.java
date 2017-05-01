@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import com.goldenie.devs.clinics_catalog.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -18,6 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
+
     protected abstract int getContentView();
 
     @Override
@@ -25,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
         ButterKnife.bind(this);
-        if(toolbar!=null)
+        if (toolbar != null)
             setSupportActionBar(toolbar);
 
     }

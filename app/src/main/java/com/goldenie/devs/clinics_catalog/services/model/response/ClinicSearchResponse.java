@@ -9,9 +9,10 @@ import java.util.ArrayList;
 /**
  * Created by kobec on 24.04.2017.
  */
-public class ClinicSearchResponse extends BaseResponse{
-   public ArrayList<Clinic> getClinics(){
-       Type listType = new TypeToken<ArrayList<Clinic>>() {}.getType();
-       return gson.fromJson(response.toString(),listType);
-   }
+public class ClinicSearchResponse extends BaseResponse {
+    public ArrayList<Clinic> getClinics() {
+        Type listType = new TypeToken<ArrayList<Clinic>>() {
+        }.getType();
+        return gson.fromJson(response.toString(), listType);
+    }
 }

@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class Service {
 
-@SerializedName("name")
-@Expose
-public String name;
-@SerializedName("id")
-@Expose
-public Integer id;
+    @SerializedName("name")
+    @Expose
+    public String name;
+    @SerializedName("id")
+    @Expose
+    public Integer id;
 
 }

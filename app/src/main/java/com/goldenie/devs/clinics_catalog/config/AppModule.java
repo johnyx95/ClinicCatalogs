@@ -3,11 +3,6 @@ package com.goldenie.devs.clinics_catalog.config;
 import android.app.Application;
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.lang.reflect.Modifier;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -27,7 +22,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public Context provideContext(){
+    public Context provideContext() {
         return application;
     }
 }

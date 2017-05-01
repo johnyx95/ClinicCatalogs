@@ -17,26 +17,26 @@ import lombok.Data;
 @Data
 public class ClinicResponse {
 
-@SerializedName("clinic")
-@Expose
-public Clinic clinic;
-@SerializedName("district")
-@Expose
-public District district;
-@SerializedName("services")
-@Expose
-public ArrayList<Service> services = new ArrayList<>();
-@SerializedName("location")
-@Expose
-public Location location;
-@SerializedName("metro")
-@Expose
-public Metro metro;
-@SerializedName("worktime")
-@Expose
-public ArrayList<Worktime> worktime = new ArrayList<>();
-@SerializedName("gallery")
-@Expose
-public ArrayList<Gallery> gallery = new ArrayList<>();
+    @SerializedName("clinic")
+    @Expose
+    public Clinic clinic;
+    @SerializedName("district")
+    @Expose
+    public District district;
+    @SerializedName("services")
+    @Expose
+    public ArrayList<Service> services = new ArrayList<>();
+    @SerializedName("location")
+    @Expose
+    public Location location;
+    @SerializedName("metro")
+    @Expose
+    public Metro metro;
+    @SerializedName("worktime")
+    @Expose
+    public ArrayList<Worktime> worktime = new ArrayList<>();
+    @SerializedName("gallery")
+    @Expose
+    public ArrayList<Gallery> gallery = new ArrayList<>();
 
 }

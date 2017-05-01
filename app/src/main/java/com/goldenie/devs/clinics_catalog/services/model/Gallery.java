@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class Gallery {
 
-@SerializedName("url")
-@Expose
-public String url;
+    @SerializedName("url")
+    @Expose
+    public String url;
 
 }

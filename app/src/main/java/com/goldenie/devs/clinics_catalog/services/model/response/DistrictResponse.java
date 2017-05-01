@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class DistrictResponse extends BaseResponse {
     public ArrayList<District> getDistricts() {
-        Type listType = new TypeToken<ArrayList<District>>() {}.getType();
-        return gson.fromJson(response.toString(),listType);
+        Type listType = new TypeToken<ArrayList<District>>() {
+        }.getType();
+        return gson.fromJson(response.toString(), listType);
     }
 }
