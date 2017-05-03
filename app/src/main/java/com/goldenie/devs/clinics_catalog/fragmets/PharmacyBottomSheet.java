@@ -1,6 +1,8 @@
 package com.goldenie.devs.clinics_catalog.fragmets;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +18,8 @@ import com.goldenie.devs.clinics_catalog.services.model.Pharmacy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by EvilDev on 02.05.2017.
@@ -26,6 +30,14 @@ public class PharmacyBottomSheet extends BottomSheetDialogFragment {
     public static final String PHARAMCY = "pharamcy";
     @BindView(R.id.name)
     AppCompatTextView name;
+    @BindView(R.id.address)
+    AppCompatTextView address;
+    @BindView(R.id.phone)
+    AppCompatTextView phone;
+    @BindView(R.id.worktime)
+    AppCompatTextView worktime;
+    Unbinder unbinder;
+
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
         @Override
@@ -81,6 +93,24 @@ public class PharmacyBottomSheet extends BottomSheetDialogFragment {
         Pharmacy pharmacy = (Pharmacy) getArguments().get(PHARAMCY);
 
         name.setText(pharmacy.getName());
+        address.setText(pharmacy.getAddress());
+        phone.setText(pharmacy.getPhone());
+        worktime.setText(pharmacy.getWorktimes(getResources()));
     }
 
+    @OnClick(R.id.address_layout)
+    public void onAddressLayoutClicked() {
+        Pharmacy pharmacy = getArguments().getParcelable(PHARAMCY);
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse(String.format("http://maps.google.com/maps?daddr=%s,%s", pharmacy.getLatitude(), pharmacy.getLongitude())));
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.phone_layout)
+    public void onPhoneLayoutClicked() {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + ((Pharmacy) getArguments().getParcelable(PHARAMCY)).getPhone()));
+        startActivity(intent);
+    }
 }

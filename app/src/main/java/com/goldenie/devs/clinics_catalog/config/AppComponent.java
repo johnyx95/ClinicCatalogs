@@ -1,5 +1,6 @@
 package com.goldenie.devs.clinics_catalog.config;
 
+import com.goldenie.devs.clinics_catalog.fragmets.ListPharmacyFragment;
 import com.goldenie.devs.clinics_catalog.fragmets.MapPharmacyFragment;
 import com.goldenie.devs.clinics_catalog.services.model.response.BaseResponse;
 
@@ -17,4 +18,6 @@ public interface AppComponent {
     void inject(BaseResponse baseResponse);
 
     void inject(MapPharmacyFragment mapPharmacyFragment);
+
+    void inject(ListPharmacyFragment listPharmacyFragment);
 }

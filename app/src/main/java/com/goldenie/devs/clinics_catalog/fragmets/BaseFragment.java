@@ -1,5 +1,6 @@
 package com.goldenie.devs.clinics_catalog.fragmets;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.goldenie.devs.clinics_catalog.utils.ViewUtils;
+import com.goldenie.devs.clinics_catalog.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,6 +20,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     private Unbinder unbinder;
+    private ProgressDialog dialog;
 
     protected abstract int getContentView();
 
@@ -30,16 +32,26 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        dialog = new ProgressDialog(getContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(getString(R.string.wait_for_a_while));
+        dialog.setCancelable(false);
+    }
 
     public void showProgressDialog() {
         if (isAdded())
-            ViewUtils.showProgressDialog(getActivity());
+            if (dialog != null && !dialog.isShowing())
+                dialog.show();
     }
 
     public void hideProgressDialog() {
         if (isAdded())
-            ViewUtils.hideProgressDialog(getActivity());
+            if (dialog != null && dialog.isShowing())
+                dialog.dismiss();
     }
 
     @Override

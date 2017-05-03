@@ -14,6 +14,7 @@ public interface PharmacyWebService {
     Observable<PharmacyResponse> getPharmacyGeo(@Query("latitude") double lat,
                                                 @Query("longitude") double lon);
 
-    @GET("/catalog/drugstores")
-    Observable<PharmacyResponse> getPharmacy(@Nullable @Query("name") String name);
+    @GET("/drugstores")
+    Observable<PharmacyResponse> getPharmacy(@Nullable @Query("name") String name,
+                                             @Nullable @Query("num_page") Integer lastPage);
 }

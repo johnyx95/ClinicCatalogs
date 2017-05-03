@@ -1,8 +1,11 @@
 package com.goldenie.devs.clinics_catalog.services.model;
 
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
+import com.goldenie.devs.clinics_catalog.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 import com.google.maps.android.clustering.ClusterItem;
@@ -13,28 +16,28 @@ import lombok.Data;
 public class Pharmacy extends BaseDataModel implements Parcelable {
 
     @SerializedName("id")
-    public Integer id;
+    private Integer id;
 
     @SerializedName("name")
-    public String name;
+    private String name;
 
     @SerializedName("longitude")
-    public Float longitude;
+    private Float longitude;
 
     @SerializedName("latitude")
-    public Float latitude;
+    private Float latitude;
 
     @SerializedName("address")
-    public String address;
+    private String address;
 
     @SerializedName("phone")
-    public String phone;
+    private String phone;
 
     @SerializedName("worktime")
-    public String worktime;
+    private String worktime;
 
     @SerializedName("city")
-    public String city;
+    private String city;
 
     public MapModel getLocationModel() {
         return new MapModel(getPosition(), name, id);
@@ -42,6 +45,23 @@ public class Pharmacy extends BaseDataModel implements Parcelable {
 
     public LatLng getPosition() {
         return new LatLng(latitude, longitude);
+    }
+
+    public String getWorktimes(Resources resources) {
+
+        String temp = "";
+
+        if (TextUtils.isEmpty(worktime))
+            return temp;
+
+        String[] worktimes = worktime.split(";");
+
+        for (int i = 0; i < worktimes.length; i++) {
+
+            temp += String.format("%s: %s\n", resources.getStringArray(R.array.days)[i], worktimes[i]);
+        }
+        return temp;
+
     }
 
     @Data
