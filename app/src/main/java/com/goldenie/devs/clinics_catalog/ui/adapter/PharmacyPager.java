@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.goldenie.devs.clinics_catalog.fragmets.ListPharmacyFragment;
-import com.goldenie.devs.clinics_catalog.fragmets.MapPharmacyFragment;
+import com.goldenie.devs.clinics_catalog.ui.fragmets.ListPharmacyFragment;
+import com.goldenie.devs.clinics_catalog.ui.fragmets.MapPharmacyFragment;
 
 import java.util.ArrayList;
 

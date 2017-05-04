@@ -1,4 +1,4 @@
-package com.goldenie.devs.clinics_catalog.fragmets;
+package com.goldenie.devs.clinics_catalog.ui.fragmets;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

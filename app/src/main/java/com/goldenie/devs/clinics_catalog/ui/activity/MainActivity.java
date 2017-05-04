@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.goldenie.devs.clinics_catalog.R;
-import com.goldenie.devs.clinics_catalog.fragmets.ClinicFragment;
-import com.goldenie.devs.clinics_catalog.fragmets.PharmacyFragment;
+import com.goldenie.devs.clinics_catalog.ui.fragmets.ClinicFragment;
+import com.goldenie.devs.clinics_catalog.ui.fragmets.PharmacyFragment;
 import com.goldenie.devs.clinics_catalog.ui.BaseActivity;
 
 import butterknife.BindView;

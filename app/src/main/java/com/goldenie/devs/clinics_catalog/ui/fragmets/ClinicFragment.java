@@ -1,4 +1,4 @@
-package com.goldenie.devs.clinics_catalog.fragmets;
+package com.goldenie.devs.clinics_catalog.ui.fragmets;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.goldenie.devs.clinics_catalog.R;
 import com.goldenie.devs.clinics_catalog.ui.adapter.ClinicPaper;
-import com.goldenie.devs.clinics_catalog.ui.adapter.PharmacyPager;
 
 import butterknife.BindView;
 

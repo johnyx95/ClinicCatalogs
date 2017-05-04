@@ -1,4 +1,4 @@
-package com.goldenie.devs.clinics_catalog.fragmets;
+package com.goldenie.devs.clinics_catalog.ui.fragmets;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +11,9 @@ import android.widget.RelativeLayout;
 
 import com.goldenie.devs.clinics_catalog.CatalogApplication;
 import com.goldenie.devs.clinics_catalog.R;
-import com.goldenie.devs.clinics_catalog.services.model.response.ClinicSearchResponse;
-import com.goldenie.devs.clinics_catalog.services.webservice.CatalogWebService;
-import com.goldenie.devs.clinics_catalog.ui.adapter.ClinicListAdapter;
+import com.goldenie.devs.clinics_catalog.services.model.response.PharmacyResponse;
+import com.goldenie.devs.clinics_catalog.services.webservice.PharmacyWebService;
+import com.goldenie.devs.clinics_catalog.ui.adapter.PharmacyListAdapter;
 import com.paginate.Paginate;
 
 import javax.inject.Inject;
@@ -26,38 +26,37 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
- * Created by kobec on 03.05.2017.
+ * Created by kobec on 01.05.2017.
  */
 
-public class ListClinicFragment extends BaseFragment{
-
-    @BindView(R.id.search_field_clinic)
-    AppCompatEditText searchFieldClinic;
-    @BindView(R.id.no_info_layout_clinic)
-    RelativeLayout noInfoLayoutClinic;
-    @BindView(R.id.list_clinic)
-    RecyclerView listClinic;
-
+public class ListPharmacyFragment extends BaseFragment {
     @Inject
-    protected CatalogWebService catalogWebService;
-    private ClinicListAdapter clinicListAdapter;
+    protected PharmacyWebService pharmacyWebService;
+
+    @BindView(R.id.search_field)
+    AppCompatEditText searchField;
+    @BindView(R.id.no_info_layout)
+    RelativeLayout noInfoLayout;
+    @BindView(R.id.list)
+    RecyclerView list;
+    private PharmacyListAdapter pharmacyListAdapter;
+
     private boolean isLoading = false;
     private Integer lastPage = 1;
     private boolean isLastPage = false;
 
-    private Integer searchQuerry = null;
-    private Integer searchQuerry1 = null;
+    private String searchQuerry = null;
 
     @Override
     protected int getContentView() {
-        return R.layout.list_clinic;
+        return R.layout.list_pharmacy;
     }
 
-    public static ListClinicFragment newInstance() {
+    public static ListPharmacyFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        ListClinicFragment fragment = new ListClinicFragment();
+        ListPharmacyFragment fragment = new ListPharmacyFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,20 +70,20 @@ public class ListClinicFragment extends BaseFragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        clinicListAdapter = new ClinicListAdapter();
-        listClinic.setAdapter(clinicListAdapter);
-        listClinic.setLayoutManager(new LinearLayoutManager(getActivity()));
+        pharmacyListAdapter = new PharmacyListAdapter();
+        list.setAdapter(pharmacyListAdapter);
+        list.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        loadClinicList(null, null, lastPage, false);
+        loadPharmacyList(null, lastPage, false);
 
         applyPaging();
     }
 
     private void applyPaging() {
-        Paginate.with(listClinic, new Paginate.Callbacks() {
+        Paginate.with(list, new Paginate.Callbacks() {
             @Override
             public void onLoadMore() {
-                loadClinicList(searchQuerry, searchQuerry1, lastPage, false);
+                loadPharmacyList(searchQuerry, lastPage, false);
             }
 
             @Override
@@ -102,17 +101,17 @@ public class ListClinicFragment extends BaseFragment{
                 .build();
     }
 
-    private void loadClinicList(Integer service, Integer district, Integer lastPage, boolean showDialog) {
+    private void loadPharmacyList(String name, Integer lastPage, boolean showDialog) {
         isLoading = true;
 
         if (showDialog)
             showProgressDialog();
 
-        catalogWebService.getClinicForServicesDistricts(service, district, lastPage)
+        pharmacyWebService.getPharmacy(name, lastPage)
                 .retry(2)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ClinicSearchResponse>() {
+                .subscribe(new Observer<PharmacyResponse>() {
                     @Override
                     public void onCompleted() {
                         Timber.d("Instructions complete");
@@ -124,39 +123,40 @@ public class ListClinicFragment extends BaseFragment{
                     }
 
                     @Override
-                    public void onNext(ClinicSearchResponse clinicSearchResponse) {
+                    public void onNext(PharmacyResponse pharmacyResponse) {
                         if (showDialog)
                             hideProgressDialog();
 
-                        if (service != null && lastPage == 1)
-                            clinicListAdapter.clear();
+                        if (name != null && lastPage == 1)
+                            pharmacyListAdapter.clear();
 
                         isLoading = false;
 
-                        if (!clinicSearchResponse.getClinics().isEmpty()) {
-                            noInfoLayoutClinic.setVisibility(View.GONE);
+                        if (!pharmacyResponse.getPharmacy().isEmpty()) {
+                            noInfoLayout.setVisibility(View.GONE);
                         } else {
-                            noInfoLayoutClinic.setVisibility(View.VISIBLE);
+                            noInfoLayout.setVisibility(View.VISIBLE);
                         }
 
-                        isLastPage = clinicSearchResponse.getClinics().size() < 20;
+                        isLastPage = pharmacyResponse.getPharmacy().size() < 20;
 
-                        clinicListAdapter.addData(clinicSearchResponse.getClinics());
-                        ListClinicFragment.this.lastPage++;
+                        pharmacyListAdapter.addData(pharmacyResponse.getPharmacy());
+                        ListPharmacyFragment.this.lastPage++;
                     }
                 });
     }
 
-    @OnEditorAction(R.id.search_field_clinic)
+    @OnEditorAction(R.id.search_field)
     protected boolean onSendSearchRequest(int actionId) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             lastPage = 1;
 
-  //          searchQuerry = searchFieldClinic.getText().toString();
-   //         loadClinicList(searchQuerry, lastPage, true);
+            searchQuerry = searchField.getText().toString();
+            loadPharmacyList(searchQuerry, lastPage, true);
             return true;
         }
 
         return false;
     }
 }
+

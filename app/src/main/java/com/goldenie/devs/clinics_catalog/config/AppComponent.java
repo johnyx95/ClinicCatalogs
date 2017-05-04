@@ -1,8 +1,8 @@
 package com.goldenie.devs.clinics_catalog.config;
 
-import com.goldenie.devs.clinics_catalog.fragmets.ListClinicFragment;
-import com.goldenie.devs.clinics_catalog.fragmets.ListPharmacyFragment;
-import com.goldenie.devs.clinics_catalog.fragmets.MapPharmacyFragment;
+import com.goldenie.devs.clinics_catalog.ui.fragmets.ListClinicFragment;
+import com.goldenie.devs.clinics_catalog.ui.fragmets.ListPharmacyFragment;
+import com.goldenie.devs.clinics_catalog.ui.fragmets.MapPharmacyFragment;
 import com.goldenie.devs.clinics_catalog.services.model.response.BaseResponse;
 
 import javax.inject.Singleton;
