@@ -3,7 +3,6 @@ package com.goldenie.devs.clinics_catalog.ui.adapter;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import com.goldenie.devs.clinics_catalog.services.model.Clinic;
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by kobec on 03.05.2017.
@@ -37,12 +37,13 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
         return new CustomViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(ClinicListAdapter.CustomViewHolder customViewHolder, int i) {
         Clinic clinic = clinicArrayList.get(i);
 
         customViewHolder.name.setText(clinic.getName());
-        //logo
+        customViewHolder.shortD.setText(clinic.getShortDescription());
         customViewHolder.rate.setText(Integer.toString(clinic.getRating()));
         if(clinic.getHasParkingLot()==1) {
             customViewHolder.parking.setImageResource(R.drawable.ic_local_parking_white_24dp);
@@ -122,6 +123,10 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
 
         @BindView(R.id.name)
         AppCompatTextView name;
+        @BindView(R.id.logo)
+        AppCompatImageView logo;
+        @BindView(R.id.short_d)
+        AppCompatTextView shortD;
         @BindView(R.id.rate)
         AppCompatTextView rate;
         @BindView(R.id.parking)
@@ -152,6 +157,12 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
         AppCompatImageView invalid;
         @BindView(R.id.invalid_text)
         AppCompatTextView invalidText;
+
+
+    @OnClick(R.id.clinic_layout)
+    public void onClinicLayoutClicked() {
+
+    }
 
 /* на страницу клиники
         @OnClick(R.id.address_layout)

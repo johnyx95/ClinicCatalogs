@@ -2,10 +2,8 @@ package com.goldenie.devs.clinics_catalog.services.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.Data;
 
 @Data
