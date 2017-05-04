@@ -11,8 +11,7 @@ import java.util.ArrayList;
  */
 public class ClinicSearchResponse extends BaseResponse {
     public ArrayList<Clinic> getClinics() {
-        Type listType = new TypeToken<ArrayList<Clinic>>() {
-        }.getType();
-        return gson.fromJson(response.toString(), listType);
+        Type listType = new TypeToken<ArrayList<Clinic>>() {}.getType();
+        return gson.fromJson(gson.toJson(response), listType);
     }
 }

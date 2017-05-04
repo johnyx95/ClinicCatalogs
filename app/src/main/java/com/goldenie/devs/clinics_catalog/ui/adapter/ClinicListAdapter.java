@@ -43,7 +43,7 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
 
         customViewHolder.name.setText(clinic.getName());
         //logo
-        customViewHolder.rate.setText(clinic.getRating());
+        customViewHolder.rate.setText(Integer.toString(clinic.getRating()));
         if(clinic.getHasParkingLot()==1) {
             customViewHolder.parking.setImageResource(R.drawable.ic_local_parking_white_24dp);
             customViewHolder.parkingText.setText(R.string.parking);
