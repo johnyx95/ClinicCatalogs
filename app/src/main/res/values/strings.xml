@@ -14,4 +14,13 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="wait_for_a_while">Wait for a while</string>
+    <string name="tab_3">Клиники</string>
+    <string name="tab_4">\?????</string>
+    <string name="parking">Парковка для машин</string>
+    <string name="epay">Оплата картой</string>
+    <string name="speak">English</string>
+    <string name="wifi">Wi-fi</string>
+    <string name="pharm">Аптека</string>
+    <string name="child">Детская комната</string>
+    <string name="invalid">инвалиды</string>
 </resources>

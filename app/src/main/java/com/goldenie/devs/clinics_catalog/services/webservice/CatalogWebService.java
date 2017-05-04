@@ -21,12 +21,12 @@ public interface CatalogWebService {
     Observable<ClinicResponse> getClinicFullInfo(@Query("clinic_id") Integer clinicID);
 
     @GET("/clinics_services_districts")
-    Observable<ClinicSearchResponse> getClinicForServicesDistricts(@Query("specialization_id") Integer serviceId,
+    Observable<ClinicSearchResponse> getClinicForServicesDistricts(@Query("service_id") Integer serviceId,
                                                                    @Query("district_id") Integer districtId,
                                                                    @Nullable @Query("num_page") Integer numPage);
 
     @GET("/clinics_services_rating")
-    Observable<ClinicSearchResponse> getClinicForServicesRating(@Query("specialization_id") Integer specializationId,
+    Observable<ClinicSearchResponse> getClinicForServicesRating(@Query("service_id") Integer specializationId,
                                                                 @Query("rating_id") Integer rating,
                                                                 @Nullable @Query("num_page") Integer numPage);
 

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.goldenie.devs.clinics_catalog.R;
+import com.goldenie.devs.clinics_catalog.fragmets.ClinicFragment;
 import com.goldenie.devs.clinics_catalog.fragmets.PharmacyFragment;
 import com.goldenie.devs.clinics_catalog.ui.BaseActivity;
 
@@ -98,12 +99,11 @@ public class MainActivity extends BaseActivity
 
 
         switch (item.getItemId()) {
-            case R.id.nav_camera:
+            case R.id.pharmacy:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, PharmacyFragment.newInstance()).commit();
                 break;
-            case R.id.nav_gallery:
-                break;
-            case R.id.nav_slideshow:
+            case R.id.clinic:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, ClinicFragment.newInstance()).commit();
                 break;
         }
         // Выделяем выбранный пункт меню в шторке
