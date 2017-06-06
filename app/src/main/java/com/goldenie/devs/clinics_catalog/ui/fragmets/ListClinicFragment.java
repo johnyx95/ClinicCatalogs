@@ -141,10 +141,20 @@ public class ListClinicFragment extends BaseFragment {
                         // Вызываем адаптер
                         spinnerDis.setAdapter(adapter);
                         spinnerDis.setSelection(0);
-                        spinnerDis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        spinnerDis.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                                 districtId = position;
+                                lastPage = 1;
+                                loadClinicList(districtId,serviceId,lastPage,true);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                districtId = null;
+
                             }
                         });
                         loadService(showDialog);
@@ -182,11 +192,19 @@ public class ListClinicFragment extends BaseFragment {
                         // Вызываем адаптер
                         spinnerService.setAdapter(adapter);
                         spinnerService.setSelection(0);
-                        spinnerService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        spinnerService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                                 serviceId = position;
                             }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                serviceId = null;
+                            }
+
                         });
                         if (showDialog)
                             hideProgressDialog();
@@ -235,10 +253,10 @@ public class ListClinicFragment extends BaseFragment {
 
                         clinicListAdapter.addData(clinicSearchResponse.getClinics());
                         ListClinicFragment.this.lastPage++;
-                        //if(service == null || district == null){
+                        if(lastPage != 1){
                             if(showDialog)
                                 hideProgressDialog();
-                    //    }else
+                       }else
                         loadDistrict(showDialog);
 
                     }
