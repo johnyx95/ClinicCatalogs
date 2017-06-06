@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
@@ -24,8 +22,6 @@ import com.paginate.Paginate;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -36,23 +32,23 @@ import timber.log.Timber;
  */
 
 public class ListClinicFragment extends BaseFragment {
-
-    @BindView(R.id.no_info_layout_clinic)
-    RelativeLayout noInfoLayoutClinic;
-    @BindView(R.id.list_clinic)
-    RecyclerView listClinic;
-
     @Inject
     protected CatalogWebService catalogWebService;
+
     @BindView(R.id.spinnerDis)
-    CustomSpinner spinnerDis;
+    protected CustomSpinner spinnerDis;
     @BindView(R.id.spinnerService)
-    CustomSpinner spinnerService;
-    Unbinder unbinder;
+    protected CustomSpinner spinnerService;
+    @BindView(R.id.no_info_layout_clinic)
+    protected RelativeLayout noInfoLayoutClinic;
+    @BindView(R.id.list_clinic)
+    protected RecyclerView listClinic;
+
     private ClinicListAdapter clinicListAdapter;
-    private boolean isLoading = false;
+
     private Integer lastPage = 1;
     private boolean isLastPage = false;
+    private boolean isLoading = false;
 
     private Integer districtId = null;
     private Integer serviceId = null;
@@ -85,7 +81,7 @@ public class ListClinicFragment extends BaseFragment {
         listClinic.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         loadClinicList(null, null, lastPage, false);
-
+        loadDistrict(true);
         applyPaging();
     }
 
@@ -130,12 +126,12 @@ public class ListClinicFragment extends BaseFragment {
 
                     @Override
                     public void onNext(DistrictResponse districtResponse) {
-                        String[] district = new String[districtResponse.getDistricts().size()+1];
-                        district [0] = "Выберите район";
+                        String[] district = new String[districtResponse.getDistricts().size() + 1];
+                        district[0] = "Выберите район";
                         for (int i = 0; i < districtResponse.getDistricts().size(); i++) {
-                            district [i+1] = districtResponse.getDistricts().get(i).getName();
+                            district[i + 1] = districtResponse.getDistricts().get(i).getName();
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, district);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, district);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         // Вызываем адаптер
@@ -144,19 +140,17 @@ public class ListClinicFragment extends BaseFragment {
                         spinnerDis.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                                 districtId = position;
                                 lastPage = 1;
-                                loadClinicList(districtId,serviceId,lastPage,true);
+                                loadClinicList(districtId, serviceId, lastPage, true);
                             }
 
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
-
                                 districtId = null;
-
                             }
                         });
+
                         loadService(showDialog);
                     }
                 });
@@ -181,10 +175,10 @@ public class ListClinicFragment extends BaseFragment {
 
                     @Override
                     public void onNext(ServicesResponse servicesResponse) {
-                        String[] service = new String[servicesResponse.getSrvices().size()+1];
-                        service [0] = "Выберите услугу";
-                        for (int i = 0; i <servicesResponse.getSrvices().size(); i++) {
-                            service[i+1] = servicesResponse.getSrvices().get(i).getName();
+                        String[] service = new String[servicesResponse.getSrvices().size() + 1];
+                        service[0] = "Выберите услугу";
+                        for (int i = 0; i < servicesResponse.getSrvices().size(); i++) {
+                            service[i + 1] = servicesResponse.getSrvices().get(i).getName();
                         }
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, service);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -195,17 +189,16 @@ public class ListClinicFragment extends BaseFragment {
                         spinnerService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                                 serviceId = position;
                             }
 
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
-
                                 serviceId = null;
                             }
 
                         });
+
                         if (showDialog)
                             hideProgressDialog();
 
@@ -252,30 +245,13 @@ public class ListClinicFragment extends BaseFragment {
                         isLastPage = clinicSearchResponse.getClinics().size() < 20;
 
                         clinicListAdapter.addData(clinicSearchResponse.getClinics());
-                        ListClinicFragment.this.lastPage++;
-                        if(lastPage != 1){
-                            if(showDialog)
-                                hideProgressDialog();
-                       }else
-                        loadDistrict(showDialog);
 
+                        if (showDialog)
+                            hideProgressDialog();
+
+                        ListClinicFragment.this.lastPage++;
                     }
                 });
 
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }
