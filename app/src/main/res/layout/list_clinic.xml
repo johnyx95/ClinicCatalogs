@@ -15,14 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <com.goldenie.devs.clinics_catalog.ui.view.CustomSpinner
                 android:id="@+id/spinnerDis"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:layout_marginRight="8dp">
+                android:minHeight="48dp">
 
             </com.goldenie.devs.clinics_catalog.ui.view.CustomSpinner>
 
@@ -30,7 +31,8 @@
                 android:id="@+id/spinnerService"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:minHeight="48dp">
 
             </com.goldenie.devs.clinics_catalog.ui.view.CustomSpinner>
 

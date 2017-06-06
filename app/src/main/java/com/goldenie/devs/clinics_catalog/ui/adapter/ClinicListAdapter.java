@@ -27,10 +27,6 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
 
     private ArrayList<Clinic> clinicArrayList = new ArrayList<>();
 
-    public ClinicListAdapter () {
-
-    }
-
     public void setData(ArrayList<Clinic> clinics) {
         clinicArrayList.clear();
         clinicArrayList.addAll(clinics);

@@ -137,10 +137,10 @@ public class ListClinicFragment extends BaseFragment {
                         // Вызываем адаптер
                         spinnerDis.setAdapter(adapter);
                         spinnerDis.setSelection(0);
-                        spinnerDis.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        spinnerDis.postDelayed(() -> spinnerDis.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                districtId = position;
+                                districtId = position + 1;
                                 lastPage = 1;
                                 loadClinicList(districtId, serviceId, lastPage, true);
                             }
@@ -149,7 +149,7 @@ public class ListClinicFragment extends BaseFragment {
                             public void onNothingSelected(AdapterView<?> parent) {
                                 districtId = null;
                             }
-                        });
+                        }), 50);
 
                         loadService(showDialog);
                     }
@@ -180,24 +180,23 @@ public class ListClinicFragment extends BaseFragment {
                         for (int i = 0; i < servicesResponse.getSrvices().size(); i++) {
                             service[i + 1] = servicesResponse.getSrvices().get(i).getName();
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, service);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, service);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         // Вызываем адаптер
                         spinnerService.setAdapter(adapter);
                         spinnerService.setSelection(0);
-                        spinnerService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        spinnerService.postDelayed(() -> spinnerService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                serviceId = position;
+                                serviceId = position + 1;
                             }
 
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
                                 serviceId = null;
                             }
-
-                        });
+                        }), 50);
 
                         if (showDialog)
                             hideProgressDialog();
@@ -229,9 +228,7 @@ public class ListClinicFragment extends BaseFragment {
 
                     @Override
                     public void onNext(ClinicSearchResponse clinicSearchResponse) {
-
-
-                        if (service != null && lastPage == 1)
+                        if (lastPage == 1)
                             clinicListAdapter.clear();
 
                         isLoading = false;
@@ -252,6 +249,5 @@ public class ListClinicFragment extends BaseFragment {
                         ListClinicFragment.this.lastPage++;
                     }
                 });
-
     }
 }
