@@ -140,9 +140,9 @@ public class ListClinicFragment extends BaseFragment {
                         spinnerDis.postDelayed(() -> spinnerDis.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                districtId = position + 1;
+                                districtId = position == 0 ? null : position;
                                 lastPage = 1;
-                                loadClinicList(districtId, serviceId, lastPage, true);
+                                loadClinicList(serviceId, districtId, lastPage, true);
                             }
 
                             @Override
@@ -189,7 +189,9 @@ public class ListClinicFragment extends BaseFragment {
                         spinnerService.postDelayed(() -> spinnerService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                serviceId = position + 1;
+                                serviceId = position == 0 ? null : position;
+                                lastPage = 1;
+                                loadClinicList(serviceId, districtId, lastPage, true);
                             }
 
                             @Override
@@ -233,15 +235,15 @@ public class ListClinicFragment extends BaseFragment {
 
                         isLoading = false;
 
-                        if (!clinicSearchResponse.getClinics().isEmpty()) {
+                        isLastPage = clinicSearchResponse.getClinics().size() < 20;
+
+                        clinicListAdapter.addData(clinicSearchResponse.getClinics());
+
+                        if (clinicListAdapter.getItemCount() != 0) {
                             noInfoLayoutClinic.setVisibility(View.GONE);
                         } else {
                             noInfoLayoutClinic.setVisibility(View.VISIBLE);
                         }
-
-                        isLastPage = clinicSearchResponse.getClinics().size() < 20;
-
-                        clinicListAdapter.addData(clinicSearchResponse.getClinics());
 
                         if (showDialog)
                             hideProgressDialog();
