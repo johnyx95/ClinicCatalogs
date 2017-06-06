@@ -1,6 +1,7 @@
 package com.goldenie.devs.clinics_catalog.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -97,19 +98,21 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
+        new Handler().postDelayed(() -> {
+            switch (item.getItemId()) {
+                case R.id.pharmacy:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, PharmacyFragment.newInstance()).commit();
+                    break;
+                case R.id.clinic:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, ClinicFragment.newInstance()).commit();
+                    break;
+            }
+            // Выделяем выбранный пункт меню в шторке
+            item.setChecked(true);
+            // Выводим выбранный пункт в заголовке
+            setTitle(item.getTitle());
+        },300) ;
 
-        switch (item.getItemId()) {
-            case R.id.pharmacy:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, PharmacyFragment.newInstance()).commit();
-                break;
-            case R.id.clinic:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, ClinicFragment.newInstance()).commit();
-                break;
-        }
-        // Выделяем выбранный пункт меню в шторке
-        item.setChecked(true);
-        // Выводим выбранный пункт в заголовке
-        setTitle(item.getTitle());
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

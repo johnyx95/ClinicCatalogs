@@ -1,13 +1,19 @@
 package com.goldenie.devs.clinics_catalog.ui.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.bumptech.glide.Glide;
 import com.goldenie.devs.clinics_catalog.R;
 import com.goldenie.devs.clinics_catalog.services.model.Clinic;
+import com.goldenie.devs.clinics_catalog.ui.activity.ClinicPage;
+
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,65 +49,38 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
         Clinic clinic = clinicArrayList.get(i);
 
         customViewHolder.name.setText(clinic.getName());
+        Glide.with(customViewHolder.itemView.getContext()).load(clinic.getLogoUrl()).into(customViewHolder.logo);
         customViewHolder.shortD.setText(clinic.getShortDescription());
         customViewHolder.rate.setText(Integer.toString(clinic.getRating()));
-        if(clinic.getHasParkingLot()==1) {
-            customViewHolder.parking.setImageResource(R.drawable.ic_local_parking_white_24dp);
-            customViewHolder.parkingText.setText(R.string.parking);
-        }
-        else {
-            customViewHolder.parking.setVisibility(View.GONE);
-            customViewHolder.parkingText.setVisibility(View.GONE);
-        }
-        if(clinic.getHasEpay()==1) {
-            customViewHolder.epay.setImageResource(R.drawable.ic_payment_white_24dp);
-            customViewHolder.epayText.setText(R.string.epay);
-        }
-        else {
-            customViewHolder.epay.setVisibility(View.GONE);
-            customViewHolder.epayText.setVisibility(View.GONE);
-        }
-        if(clinic.getSpeakEnglish()==1) {
-            customViewHolder.speak.setImageResource(R.drawable.ic_language_white_24dp);
-            customViewHolder.speakText.setText(R.string.speak);
-        }
-        else {
-            customViewHolder.speak.setVisibility(View.GONE);
-            customViewHolder.speakText.setVisibility(View.GONE);
-        }
-        if(clinic.getHasWifi()==1) {
-            customViewHolder.wifi.setImageResource(R.drawable.ic_wifi_white_24dp);
-            customViewHolder.wifiText.setText(R.string.wifi);
-        }
-        else {
-            customViewHolder.wifi.setVisibility(View.GONE);
-            customViewHolder.wifiText.setVisibility(View.GONE);
-        }
-        if(clinic.getHasPharamcy()==1) {
-            customViewHolder.pharm.setImageResource(R.drawable.ic_local_pharmacy_white_24dp);
-            customViewHolder.pharmText.setText(R.string.pharm);
-        }
-        else {
-            customViewHolder.pharm.setVisibility(View.GONE);
-            customViewHolder.parkingText.setVisibility(View.GONE);
-        }
-        if(clinic.getHasChildrenRoom()==1) {
-            customViewHolder.child.setImageResource(R.drawable.ic_child_care_white_24dp);
-            customViewHolder.childText.setText(R.string.child);
-        }
-        else {
-            customViewHolder.child.setVisibility(View.GONE);
-            customViewHolder.childText.setVisibility(View.GONE);
-        }
-        if(clinic.getHasInvalid()==1) {
-            customViewHolder.invalid.setImageResource(R.drawable.ic_accessible_white_24dp);
-            customViewHolder.invalidText.setText(R.string.invalid);
-        }
-        else {
-            customViewHolder.invalid.setVisibility(View.GONE);
-            customViewHolder.invalidText.setVisibility(View.GONE);
-        }
 
+        customViewHolder.parkingLayout.setVisibility(View.VISIBLE);
+        if(clinic.getHasParkingLot()!=1) {
+            customViewHolder.parkingLayout.setVisibility(View.GONE);
+        }
+        customViewHolder.epayLayout.setVisibility(View.VISIBLE);
+        if(clinic.getHasEpay()!=1) {
+            customViewHolder.epayLayout.setVisibility(View.GONE);
+        }
+        customViewHolder.speakLayout.setVisibility(View.VISIBLE);
+        if(clinic.getSpeakEnglish()!=1) {
+            customViewHolder.speakLayout.setVisibility(View.GONE);
+        }
+        customViewHolder.wifiLayout.setVisibility(View.VISIBLE);
+        if(clinic.getHasWifi()!=1) {
+            customViewHolder.wifiLayout.setVisibility(View.GONE);
+        }
+        customViewHolder.pharmLayout.setVisibility(View.VISIBLE);
+        if(clinic.getHasPharamcy()!=1) {
+            customViewHolder.pharmLayout.setVisibility(View.GONE);
+        }
+        customViewHolder.childLayout.setVisibility(View.VISIBLE);
+        if(clinic.getHasChildrenRoom()!=1) {
+            customViewHolder.childLayout.setVisibility(View.GONE);
+        }
+        customViewHolder.invalidLayout.setVisibility(View.VISIBLE);
+        if(clinic.getHasInvalid()!=1) {
+            customViewHolder.invalidLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -121,6 +100,20 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.parking_layout)
+        LinearLayout parkingLayout;
+        @BindView(R.id.epay_layout)
+        LinearLayout epayLayout;
+        @BindView(R.id.speak_layout)
+        LinearLayout speakLayout;
+        @BindView(R.id.wifi_layout)
+        LinearLayout wifiLayout;
+        @BindView(R.id.pharm_layout)
+        LinearLayout pharmLayout;
+        @BindView(R.id.child_layout)
+        LinearLayout childLayout;
+        @BindView(R.id.invalid_layout)
+        LinearLayout invalidLayout;
         @BindView(R.id.name)
         AppCompatTextView name;
         @BindView(R.id.logo)
@@ -159,9 +152,12 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
         AppCompatTextView invalidText;
 
 
-    @OnClick(R.id.clinic_layout)
+    @OnClick(R.id.name_layout)
     public void onClinicLayoutClicked() {
 
+        Intent intent = new Intent(itemView.getContext(),ClinicPage.class);
+        intent.putExtra("ClinicId",this.getClinic().getId());
+        itemView.getContext().startActivity(intent);
     }
 
 /* на страницу клиники
