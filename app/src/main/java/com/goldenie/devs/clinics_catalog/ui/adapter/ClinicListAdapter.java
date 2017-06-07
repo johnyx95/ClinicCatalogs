@@ -153,6 +153,7 @@ public class ClinicListAdapter extends RecyclerView.Adapter<ClinicListAdapter.Cu
 
         Intent intent = new Intent(itemView.getContext(),ClinicPage.class);
         intent.putExtra("ClinicId",this.getClinic().getId());
+        intent.putExtra("clinicName",this.getClinic().getName());
         itemView.getContext().startActivity(intent);
     }
 

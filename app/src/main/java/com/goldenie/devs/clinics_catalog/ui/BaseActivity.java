@@ -1,5 +1,6 @@
 package com.goldenie.devs.clinics_catalog.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getContentView();
 
+    private ProgressDialog dialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (toolbar != null)
             setSupportActionBar(toolbar);
 
+        dialog = new ProgressDialog(this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(getString(R.string.wait_for_a_while));
+        dialog.setCancelable(false);
+
+    }
+
+    public void showProgressDialog() {
+            if (dialog != null && !dialog.isShowing())
+                dialog.show();
+    }
+
+    public void hideProgressDialog() {
+            if (dialog != null && dialog.isShowing())
+                dialog.dismiss();
     }
 }
 

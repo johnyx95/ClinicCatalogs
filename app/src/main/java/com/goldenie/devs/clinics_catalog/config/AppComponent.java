@@ -1,5 +1,6 @@
 package com.goldenie.devs.clinics_catalog.config;
 
+import com.goldenie.devs.clinics_catalog.ui.activity.ClinicPage;
 import com.goldenie.devs.clinics_catalog.ui.fragmets.ListClinicFragment;
 import com.goldenie.devs.clinics_catalog.ui.fragmets.ListPharmacyFragment;
 import com.goldenie.devs.clinics_catalog.ui.fragmets.MapPharmacyFragment;
@@ -23,4 +24,7 @@ public interface AppComponent {
     void inject(ListPharmacyFragment listPharmacyFragment);
 
     void inject(ListClinicFragment listClinicFragment);
+
+
+    void inject(ClinicPage clinicPage);
 }
