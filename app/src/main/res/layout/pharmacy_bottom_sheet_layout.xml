@@ -40,7 +40,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"
             android:textSize="24sp"
-            tools:text="Переулок ебущехся гомосеков, дом 2, иди на хуй" />
+            tools:text="Переулок" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,7 +75,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/primary_text"
             android:textSize="16sp"
-            tools:text="Переулок ебущехся гомосеков, дом 2, иди на хуй" />
+            tools:text="Переулок" />
     </LinearLayout>
 
     <LinearLayout
@@ -109,7 +109,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/primary_text"
             android:textSize="16sp"
-            tools:text="Переулок ебущехся гомосеков, дом 2, иди на хуй" />
+            tools:text="Переулок" />
     </LinearLayout>
 
     <LinearLayout
@@ -141,7 +141,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/primary_text"
             android:textSize="16sp"
-            tools:text="Переулок ебущехся гомосеков, дом 2, иди на хуй" />
+            tools:text="Переулок" />
     </LinearLayout>
 
 
